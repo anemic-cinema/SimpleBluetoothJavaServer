@@ -18,6 +18,9 @@ import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 
@@ -60,6 +63,7 @@ public class ClientConnection {
 
         	if(args != null && !args.isEmpty()){
         		parameters = "cmd=" + args + "&random=" + getRandom;
+        	//parameters = "random=" + getRandom;
         	} else {
         		parameters = "random=" + getRandom;
         	}
@@ -99,18 +103,7 @@ public class ClientConnection {
                     System.out.println("SERVER RESPONSE: " 	+ ContentType.getOrDefault(entity) + "\n"
                     										+ EntityUtils.toString(entity));
                     System.out.println("----------------------------------------\n");
-                    
-                    /*
-                     * TODO Improve this part
-                     */
-                    if(!flag){
-                    	// set flag to true
-                    	flag = true;
-                    	// resend the request
-                    	getRequest("");
-                    } else {
-                    	flag = false;
-                    }
+              
                     //instream.read()
                 } catch (IOException ex) {
                     // In case of an IOException the connection will be released
@@ -133,6 +126,21 @@ public class ClientConnection {
             // shut down the connection manager to ensure
             // immediate deallocation of all system resources
             httpclient.getConnectionManager().shutdown();
+            /*
+             * TODO Improve this part
+             */
+            if(!flag){
+            	// set flag to true
+            	flag = true;
+	        	  /*
+	             * TODO Improve this part
+	             */
+            	// sleep the thread with timeout because foobar macro is slow to update
+            	Thread.sleep(200);
+            	getRequest("");
+            } else {
+            	flag = false;
+            }
         }
     }
 
