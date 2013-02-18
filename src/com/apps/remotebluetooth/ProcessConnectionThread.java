@@ -13,7 +13,7 @@ public class ProcessConnectionThread implements Runnable{
 
 	private StreamConnection mConnection;
 	private OutputStream outStream = null; 
-	
+	//another git test
 	// Constant that indicate command from devices
 	private static final int EXIT = -1;
 	private static final int PLAY  = 1; 
