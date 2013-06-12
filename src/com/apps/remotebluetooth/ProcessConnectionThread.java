@@ -28,7 +28,7 @@ public class ProcessConnectionThread implements Runnable{
 	{
 		mConnection = connection;
 	}
-	
+	// test
 	@Override
 	public void run() {
 		try {
