@@ -66,7 +66,7 @@ public class ProcessConnectionThread implements Runnable{
 			}
 			PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(outStream));
 			System.out.println("Response String from SPP Server");
-			//pWriter.print(inputStream);
+			pWriter.print(inputStream);
 			pWriter.print("test");
 			pWriter.flush();
 			pWriter.close();
