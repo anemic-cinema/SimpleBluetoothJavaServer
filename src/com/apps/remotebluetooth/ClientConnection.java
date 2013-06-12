@@ -28,6 +28,7 @@ public class ClientConnection {
 
 	static final String addr = "http://localhost:8888/kevo/";
 	private static boolean flag = false;
+	private static InputStream dispatcher = null;
 	
 	/* Constructor */
 	public ClientConnection() {
@@ -39,7 +40,7 @@ public class ClientConnection {
 		return random;
 	}
 
-    public void getRequest(String args) throws Exception {
+    public InputStream getRequest(String args) throws Exception {
     	SchemeRegistry schemeRegistry = new SchemeRegistry();
     	schemeRegistry.register(
     	         new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
@@ -97,15 +98,13 @@ public class ClientConnection {
             if (entity != null) {
                 InputStream instream = entity.getContent();
                 try {
-                    instream.read();
                     // do something useful with the response
                     System.out.println("----------------------------------------");
                     System.out.println("SERVER RESPONSE: " 	+ ContentType.getOrDefault(entity) + "\n"
                     										+ EntityUtils.toString(entity));
                     System.out.println("----------------------------------------\n");
-              
-                    //instream.read()
-                } catch (IOException ex) {
+                    dispatcher = instream;
+                } catch (IOException ex) {	
                     // In case of an IOException the connection will be released
                     // back to the connection manager automatically
                     throw ex;
@@ -142,6 +141,7 @@ public class ClientConnection {
             	flag = false;
             }
         }
+		return dispatcher;
     }
 
 }

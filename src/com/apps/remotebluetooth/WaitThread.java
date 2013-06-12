@@ -41,7 +41,7 @@ public class WaitThread implements Runnable{
             notifier = (StreamConnectionNotifier)Connector.open(url);
         } catch (BluetoothStateException e) {
             System.out.println("----------------------------------------");
-            System.out.println("SERVER RSPONSE: Bluetooth is not turned on.");
+            System.out.println("SERVER RESPONSE: Bluetooth is not turned on.");
             System.out.println("----------------------------------------\n");
 			e.printStackTrace();
 			return;
@@ -54,10 +54,8 @@ public class WaitThread implements Runnable{
 		while(true) {
 			try {
 	            System.out.println("----------------------------------------");
-	            System.out.println("SERVER RSPONSE: Waiting for connection...");
+	            System.out.println("SERVER RESPONSE: Waiting for connection...");
 	            System.out.println("----------------------------------------\n");
-				
-				ProcessConnectionThread.processCommand(3);
 	            connection = notifier.acceptAndOpen();
 	            Thread processThread = new Thread(new ProcessConnectionThread(connection));
 	            processThread.start();      

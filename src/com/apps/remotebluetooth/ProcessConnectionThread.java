@@ -13,6 +13,7 @@ public class ProcessConnectionThread implements Runnable{
 
 	private StreamConnection mConnection;
 	private OutputStream outStream = null; 
+
 	//another git test
 	// Constant that indicate command from devices
 	private static final int EXIT = -1;
@@ -42,9 +43,9 @@ public class ProcessConnectionThread implements Runnable{
 	        		System.out.println("Finish process");
 	        		break;
 	        	}
-	        	processCommand(command);
+				ClientConnection request = new ClientConnection();
 	        	// Send response to Bluetooth client
-	        	sendResponse();
+	        	sendResponse(request.getRequest(processCommand(command)));
         	}
         } catch (Exception e) {
     		e.printStackTrace();
@@ -57,7 +58,7 @@ public class ProcessConnectionThread implements Runnable{
 	 * @return 
 	 * @throws IOException 
 	 */
-	public void sendResponse(){
+	public void sendResponse(InputStream inputStream){
 		try{
 			//send response to spp client
 			if(outStream == null){
@@ -65,7 +66,8 @@ public class ProcessConnectionThread implements Runnable{
 			}
 			PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(outStream));
 			System.out.println("Response String from SPP Server");
-			pWriter.print("Response String from SPP Server\r\n");
+			//pWriter.print(inputStream);
+			pWriter.print("test");
 			pWriter.flush();
 			pWriter.close();
 		} catch (Exception e) {
@@ -78,7 +80,7 @@ public class ProcessConnectionThread implements Runnable{
 	 * Process the command from client
 	 * @param command the command code
 	 */
-	public static void processCommand(int command) { //private void processCommand(int command) {
+	public static String processCommand(int command) { //private void processCommand(int command) {
 		try {
 			switch (command) {
 	    	case PLAY:
@@ -106,10 +108,10 @@ public class ProcessConnectionThread implements Runnable{
 	    		cmd = "StartPrevious";
 	    		break;
 			}
-			ClientConnection request = new ClientConnection();
-			request.getRequest(cmd);
+			return cmd;
 		} catch (Exception e) {	
 			e.printStackTrace();		
 		}
+		return cmd;
 	}
 }
