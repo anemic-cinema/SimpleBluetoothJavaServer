@@ -18,7 +18,7 @@ public class WaitThread implements Runnable{
 	
 	@Override
 	public void run() {
-		waitForConnection();		
+		waitForConnection();
 	}
 	
 	/** Waiting for connection from devices */
@@ -56,9 +56,14 @@ public class WaitThread implements Runnable{
 	            System.out.println("----------------------------------------");
 	            System.out.println("SERVER RESPONSE: Waiting for connection...");
 	            System.out.println("----------------------------------------\n");
-	            connection = notifier.acceptAndOpen();
-	            Thread processThread = new Thread(new ProcessConnectionThread(connection));
-	            processThread.start(); 
+	            /*TEST COMMAND*/
+	            String cmd = "StartNext"; // just for test
+	            ClientConnection request = new ClientConnection();// just for test
+	    		request.getRequest(cmd);// just for test
+	    		/*/TEST COMMAND*/
+				connection = notifier.acceptAndOpen();
+				Thread processThread = new Thread(new ProcessConnectionThread(connection));
+				processThread.start(); 
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
