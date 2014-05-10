@@ -21,9 +21,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-// test
 
-// test2
 public class ClientConnection {
 
 	static final String addr = "http://localhost:8888/kevo/";
